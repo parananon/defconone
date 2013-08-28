@@ -2,7 +2,11 @@ extends layout
 block content
 	body
 		div.container
-			form.form-signin(form-signin-heading="Please sign in")
-				input(type="text", class="form-control", placeholder="Email address")
-				input(type="submit", class="btn btn-large btn-danger btn-block", value="Send")
+			form.form-signin(method="post")
+				form-signin-heading("Please sign in")
+				input(type="text", class="form-control", name="email", placeholder="Email address")
+				input(type="submit", class="btn btn-large btn-danger btn-block", value="Send Email")
+				<br>
+				input(type="text", class="form-control", placeholder="(XXX) XXX-XXXX")
+				input(type="submit", class="btn btn-large btn-success btn-block", value="Send SMS")
 		div.footer
