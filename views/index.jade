@@ -7,6 +7,17 @@ block content
 				input(type="text", class="form-control", name="email", placeholder="Email address")
 				input(type="submit", class="btn btn-large btn-danger btn-block", value="Send Email")
 				<br>
-				input(type="text", class="form-control", placeholder="(XXX) XXX-XXXX")
+			form.form-signin(action="/sms", method="get")
+				input(type="tel", class="form-control", name="sms", placeholder="(XXX) XXX-XXXX")
 				input(type="submit", class="btn btn-large btn-success btn-block", value="Send SMS")
+		.container
+			form.form-signin
+				h2.form-signin-heading Please sign in
+				input.form-control(type='text', placeholder='Email address', autofocus='autofocus')
+				input.form-control(type='password', placeholder='Password')
+				label.checkbox
+					input(type='checkbox', value='remember-me')
+					| Remember me
+				button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
+
 		div.footer
