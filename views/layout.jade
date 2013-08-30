@@ -5,7 +5,18 @@ html
     meta(name='viewport', content="width=device-width, initial-scale=1.0")
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/jumbotron-narrow.css')
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
     script(src='js/bootstrap.min.js')
+    .container
+      .header
+          ul.nav.nav-pills.pull-right
+            li
+              a(href='/') Home
+            li
+              a(href='/about') About
+            li
+              a(href='/email') Send an email
+          h3.text-muted Defcon One
   body
     block content

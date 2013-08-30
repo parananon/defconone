@@ -1,79 +1,35 @@
 extends layout
 block content
     body
-    .navbar.navbar-inverse.navbar-fixed-top
         .container
-            .navbar-header
-              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-              a.navbar-brand(href='#') Defcon One
-            .navbar-collapse.collapse
-              ul.nav.navbar-nav
-                li.active
-                  a(href='#') Home
-                li
-                  a(href='about') About
-                li
-                  a(href='#contact') Contact
-                li.dropdown
-                  a.dropdown-toggle(href='#', data-toggle='dropdown')
-                    | Dropdown
-                    b.caret
-                  ul.dropdown-menu
-                    li
-                      a(href='#') Action
-                    li
-                      a(href='#') Another action
-                    li
-                      a(href='#') Something else here
-                    li.divider
-                    li.dropdown-header Nav header
-                    li
-                      a(href='#') Separated link
-                    li
-                      a(href='#') One more separated link
-              form.navbar-form.navbar-right
-                .form-group
-                  input.form-control(type='text', placeholder='Email')
-                .form-group
-                  input.form-control(type='password', placeholder='Password')
-                button.btn.btn-success(type='submit') Sign in
-    .jumbotron
-      .container
-        h1 Defcon One
-        p
-          | This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
-        p
-          a.btn.btn-primary.btn-lg Learn more »
-    .container
-      .row
-        .col-lg-4
-          h2 Heading
-          p
-            | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-          p
-            a.btn.btn-default(href='#') View details »
-        .col-lg-4
-          h2 Heading
-          p
-            | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-          p
-            a.btn.btn-default(href='#') View details »
-        .col-lg-4
-          h2 Heading
-          p
-            | Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          p
-            a.btn.btn-default(href='#') View details »
-      hr
-      footer
-        p © Company 2013
-
+          .jumbotron
+            h1 Defcon One
+            p.lead
+              | An alert system for people who struggle with psychological disorders to send messages and get in touch with friends, family, and hotlines through a simple web interface.
+            p
+              a.btn.btn-lg.btn-success(href='#') Sign up today
+          .row.marketing
+            .col-lg-6
+              h4 Subheading
+              p
+                | Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.
+              h4 Subheading
+              p
+                | Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+              h4 Subheading
+              p Maecenas sed diam eget risus varius blandit sit amet non magna.
+            .col-lg-6
+              h4 Subheading
+              p
+                | Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.
+              h4 Subheading
+              p
+                | Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+              h4 Subheading
+              p Maecenas sed diam eget risus varius blandit sit amet non magna.
 
         div.container
-            form.form-signin(action="/email", method="get")
+            form.form-signin(action="/email/addr", method="get")
                 form-signin-heading("Please sign in")
                 input(type="text", class="form-control", name="email", placeholder="Email address")
                 input(type="submit", class="btn btn-large btn-danger btn-block", value="Send Email")
@@ -82,13 +38,10 @@ block content
                 input(type="tel", class="form-control", name="sms", placeholder="(XXX) XXX-XXXX")
                 input(type="submit", class="btn btn-large btn-success btn-block", value="Send SMS")
         .container
-            form.form-signin
+            form.form-signin(method="get", action="/login")
                 h2.form-signin-heading Please sign in
-                input.form-control(type='text', placeholder='Email address', autofocus='autofocus')
+                input.form-control(type='text', name='user', placeholder='Username')
                 input.form-control(type='password', placeholder='Password')
-                label.checkbox
-                    input(type='checkbox', value='remember-me')
-                    | Remember me
                 button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
 
         div.footer
