@@ -2,23 +2,51 @@
 html
   head
     title= "Defcon 1"
+    meta(charset="utf-8")
     meta(name='viewport', content="width=device-width, initial-scale=1.0")
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/css/jumbotron-narrow.css')
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    //link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/jumbotron.css')
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
     script(src='js/bootstrap.min.js')
-    .container
-      .header
-          ul.nav.nav-pills.pull-right
-            li
-              a(href='/') Home
-            li
-              a(href='/about') About
-            li
-              a(href='/email') Send an email
-            li
-              a(href='/hotlines') Hotlines
-          h3.text-muted Defcon One
   body
+    .navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                col-md.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.navbar-brand(href='/') Defcon One
+            .navbar-collapse.collapse
+              ul.nav.navbar-nav
+                li.active
+                  a(href='/') Home
+                li
+                  a(href='/about') About
+                li
+                  a(href='#contact') Contact
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Resources
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='/hotlines') Hotlines
+                    li
+                      a(href='#') Another action
+                    li
+                      a(href='#') Something else here
+                    li.divider
+                    li.dropdown-header Nav header
+                    li
+                      a(href='#') Separated link
+                    li
+                      a(href='#') One more separated link
+              form.navbar-form.navbar-right
+                .form-group
+                  input.form-control(type='text', placeholder='Email')
+                .form-group
+                  input.form-control(type='password', placeholder='Password')
+                button.btn.btn-success(type='submit') Sign in
     block content
