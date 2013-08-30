@@ -1,0 +1,29 @@
+extends layout
+block content
+    body
+    .container
+        form.form-horizontal
+            fieldset 
+                legend What are you struggling with?
+                .control-group
+                  .controls
+                    label.radio(for='radios-0')
+                      input#radios-0(name='radios', value='suicide', checked='checked', type='radio')
+                      | Suicide
+                    label.radio(for='radios-1')
+                      input#radios-1(name='radios', value='selfharm', type='radio')
+                      | Self-Injury
+                    label.radio(for='radios-2')
+                      input#radios-2(name='radios', value='alcohol', type='radio')
+                      | Alcohol
+                    label.radio(for='radios-3')
+                      input#radios-3(name='radios', value='eatingdisorders', type='radio')
+                      | Eating Disorders
+                    label.radio(for='radios-4')
+                      input#radios-4(name='radios', value='grief', type='radio')
+                      | Grief
+                    label.radio(for='radios-5')
+                      input#radios-5(name='radios', value='sexuality', type='radio')
+                      | Sexuality
+                    <br>
+                input(type='submit', class='btn btn-danger btn-large', value='Bootstrap Button Generator')

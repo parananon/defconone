@@ -14,3 +14,7 @@ exports.about = function(req, res){
 exports.email = function(req, res){
 	res.render('email', { title: 'Send an email' });
 };
+
+exports.hotlines = function(req, res){
+	res.render('hotlines', { title: 'Hotlines' });
+};
