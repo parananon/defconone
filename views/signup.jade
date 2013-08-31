@@ -1,0 +1,13 @@
+link(rel='stylesheet', href='/css/signup.css')
+extends layout
+block content
+    body
+        .container
+            form.form-signin(action="/signup", method="post")
+                h2.form-signin-heading Sign up
+                input.form-control(type='text', name='email', placeholder='Email address', autofocus='autofocus')
+                input.form-control(type='password', name='password', placeholder='Password')
+                label.checkbox
+                  input(type='checkbox', value='remember-me')
+                  | Remember me
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign up

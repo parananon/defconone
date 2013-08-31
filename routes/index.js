@@ -15,6 +15,14 @@ exports.email = function(req, res){
 	res.render('email', { title: 'Send an email' });
 };
 
+exports.brb = function(req, res){
+	res.render('brb', { title: 'Big Red Button' });
+};
+
 exports.hotlines = function(req, res){
 	res.render('hotlines', { title: 'Hotlines' });
 };
+
+exports.signup = function(req, res){
+	res.render('signup', { title: 'Sign Up' });
+}
