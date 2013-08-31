@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Defcon 1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!--link(rel='stylesheet', href='/stylesheets/style.css')-->
+    <link rel="stylesheet" href="/css/jumbotron.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Defcon One</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Resources<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/hotlines">Hotlines</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <body>
+      <div class="container">
+        <div class="jumbotron">
+          <div class="container">
+            <h1>Defcon One</h1>
+            <p>An alert system for people who struggle with psychological disorders to send messages and get in touch with friends, family, and hotlines through a simple web interface.</p>
+            <p><a class="btn btn-primary btn-lg">Learn more »</a></p>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+              <p><a href="#" class="btn btn-default">View details »</a></p>
+            </div>
+            <div class="col-lg-4">
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+              <p><a href="#" class="btn btn-default">View details »</a></p>
+            </div>
+            <div class="col-lg-4">
+              <h2>Heading</h2>
+              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+              <p><a href="#" class="btn btn-default">View details »</a></p>
+            </div>
+          </div>
+          <hr>
+          <footer>
+            <p>© Defcon One 2013</p>
+          </footer>
+        </div>
+      </div>
+      <div class="container">
+        <form action="/email/addr" method="get" class="form-signin">
+          <form-signin-heading Please sign in></form-signin-heading>
+          <input type="text" name="email" placeholder="Email address" class="form-control">
+          <input type="submit" value="Send Email" class="btn btn-large btn-danger btn-block"><br>
+        </form>
+        <form action="/sms" method="get" class="form-signin">
+          <input type="tel" name="sms" placeholder="(XXX) XXX-XXXX" class="form-control">
+          <input type="submit" value="Send SMS" class="btn btn-large btn-success btn-block">
+        </form>
+      </div>
+      <div class="container">
+        <form method="get" action="/login" class="form-signin">
+          <h2 class="form-signin-heading">Please sign in</h2>
+          <input type="text" name="user" placeholder="Username" class="form-control">
+          <input type="password" placeholder="Password" class="form-control">
+          <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        </form>
+      </div>
+      <div class="container">
+        <div class="footer">
+          <p>&copy; Defcon One 2013</p>
+        </div>
+      </div>
+    </body>
+  </body>
+</html>
