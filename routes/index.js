@@ -26,3 +26,11 @@ exports.hotlines = function(req, res){
 exports.signup = function(req, res){
 	res.render('signup', { title: 'Sign Up' });
 }
+
+exports.signin = function(req, res){
+	res.render('signin', { title: 'Sign In' });
+}
+
+exports.settings = function(req, res){
+	res.render('settings', { title: 'Settings' });
+}

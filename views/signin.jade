@@ -3,10 +3,10 @@ extends layout
 block content
     body
         .container
-            form.form-signin(action="/signup", method="post")
-                h2.form-signin-heading Sign up
+            form.form-signin(action="/login", method="post")
+                h2.form-signin-heading Sign in
                 input.form-control(type='text', name='username', placeholder='Username', autofocus='autofocus')
                 <br>
                 input.form-control(type='password', name='password', placeholder='Password')
                 <br>
-                button.btn.btn-lg.btn-success.btn-block(type='submit') Sign up
+                button.btn.btn-lg.btn-info.btn-block(type='submit') Sign in

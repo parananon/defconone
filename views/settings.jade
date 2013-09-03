@@ -1,0 +1,20 @@
+extends layout
+block content
+    body
+        .container
+            h1 Hey there, #{user.username}!
+            form.form(action="/settings/changepass", method="post")
+                h3.form-signin-heading Change your password
+                input.form-control(type='password', name='newpass', placeholder='Password')
+                <br>
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Change password
+            form.form-signin(action="/settings/delete", method="post")
+                h3.form-signin-heading Delete your account
+                input.form-control(type='text', name='uname', placeholder='Username')
+                <br>
+                button.btn.btn-lg.btn-danger.btn-block(type='submit') Delete your account
+            form.form(action="/settings/addtel", method="post")
+                h3.form-signin-heading Add telephone number
+                input.form-control(type='tel', name='newtel', placeholder='5555555555')
+                <br>
+                button.btn.btn-lg.btn-success.btn-block(type='submit') Add telephone number
