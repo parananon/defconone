@@ -11,10 +11,6 @@ exports.about = function(req, res){
     res.render('about', { title: 'About' });
 };
 
-exports.email = function(req, res){
-	res.render('email', { title: 'Send an email' });
-};
-
 exports.brb = function(req, res){
 	res.render('brb', { title: 'Big Red Button' });
 };

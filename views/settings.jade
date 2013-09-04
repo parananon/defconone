@@ -7,7 +7,7 @@ block content
                 h3.form-signin-heading Change your password
                 input.form-control(type='password', name='newpass', placeholder='Password')
                 <br>
-                button.btn.btn-lg.btn-primary.btn-block(type='submit') Change password
+                button.btn.btn-lg.btn-warning.btn-block(type='submit') Change password
             form.form-signin(action="/settings/delete", method="post")
                 h3.form-signin-heading Delete your account
                 input.form-control(type='text', name='uname', placeholder='Username')
@@ -18,3 +18,8 @@ block content
                 input.form-control(type='tel', name='newtel', placeholder='5555555555')
                 <br>
                 button.btn.btn-lg.btn-success.btn-block(type='submit') Add telephone number
+            form.form(action="/settings/addemail", method="post")
+                h3.form-signin-heading Add email address
+                input.form-control(type='email', name='newmail', placeholder='example@example.com')
+                <br>
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Add email address
