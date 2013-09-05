@@ -4,6 +4,8 @@ block content
 		.container
 			h1 Hey there, #{user.username}!
 			form.form-signin(action="/sms", method="get")
+				if message != null
+					h4 #{message}
 				h4 Phone numbers:
 				each phonenum in user.phone
 					li= phonenum
