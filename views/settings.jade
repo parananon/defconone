@@ -5,12 +5,16 @@ block content
             h1 Hey there, #{user.username}!
             form.form(action="/settings/changepass", method="post")
                 h3.form-signin-heading Change your password
-                input.form-control(type='password', name='newpass', placeholder='Password')
+                input.form-control(type='password', name='oldpass', placeholder='Old Password')
+                <br>
+                input.form-control(type='password', name='newpass', placeholder='New Password')
                 <br>
                 button.btn.btn-lg.btn-warning.btn-block(type='submit') Change password
             form.form-signin(action="/settings/delete", method="post")
                 h3.form-signin-heading Delete your account
                 input.form-control(type='text', name='uname', placeholder='Username')
+                <br>
+                input.form-control(type='password', name='verifydelete', placeholder='Password')
                 <br>
                 button.btn.btn-lg.btn-danger.btn-block(type='submit') Delete your account
             form.form(action="/settings/addtel", method="post")
