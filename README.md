@@ -9,5 +9,7 @@ Currently, Defcon One makes use of:
 * Jade templating engine
 * Twitter bootstrap
 - In the future I plan on adding an account system, likely using MongoDB.
+
+<a href="http://thenounproject.com/noun/alarm-clock/#icon-No18260" target="_blank">Alarm Clock</a> designed by <a href="http://thenounproject.com/mayene" target="_blank">Mayene de Leon</a> from The Noun Project
 ## License
 (See license file in the github repository.)
