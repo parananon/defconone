@@ -10,6 +10,7 @@ Currently, Defcon One makes use of:
 * Twitter bootstrap
 - In the future I plan on adding an account system, likely using MongoDB.
 
-<a href="http://thenounproject.com/noun/alarm-clock/#icon-No18260" target="_blank">Alarm Clock</a> designed by <a href="http://thenounproject.com/mayene" target="_blank">Mayene de Leon</a> from The Noun Project
+<a href="http://thenounproject.com/noun/alert/#icon-No21426" target="_blank">Alert</a> designed by <a href="http://thenounproject.com/stefano.vetere" target="_blank">Stefano Vetere</a> from The Noun Project
+
 ## License
 (See license file in the github repository.)
