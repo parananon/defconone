@@ -31,9 +31,9 @@ block content
                 button.btn.btn-lg.btn-danger.btn-block(type='submit') Remove email address   
             form.form(action="/settings/changepass", method="post")
                 h3.form-signin-heading Change your password
-                input.form-control(type='password', name='oldpass', placeholder='Old Password')
-                <br>
                 input.form-control(type='password', name='newpass', placeholder='New Password')
+                <br>
+                input.form-control(type='password', name='newpass2', placeholder='New Password Again')
                 <br>
                 button.btn.btn-lg.btn-warning.btn-block(type='submit') Change password
             form.form-signin(action="/settings/delete", method="post")
