@@ -2,7 +2,8 @@ extends layout
 block content
     body
       if (message.length != 0)
-        .alert.alert-danger #{message}
+          .alert.alert-info.fade.in #{message}
+              a.close(href="#", data-dismiss="alert") x
       .jumbotron
         .container
             h1 Defcon One

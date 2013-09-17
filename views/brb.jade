@@ -1,20 +1,25 @@
 extends layout
 block content
-	body
-		.container
-			h1 Hey there, #{user.username}!
-			form.form-signin(action="/sms", method="get")
-				if message != null
-					h4 #{message}
-				h4 Phone numbers:
-				each phonenum in user.phone
-					li= phonenum
-				<br>
-				button.btn.btn-lg.btn-success.btn-block(type='submit') Send SMS
-				<br>
-			form.form-signin(action="/email", method="get")
-				h4 Email addresses:
-				each emailaddr in user.email
-					li= emailaddr
-				<br>
-				button.btn.btn-lg.btn-primary.btn-block(type='submit') Send email
+    body
+        .container
+            h1 Hey there, #{user.name}!
+            if (message.length != 0)
+                .alert.alert-info.fade.in #{message}
+                    a.close(href="#", data-dismiss="alert") x
+            strong
+                | You can add more phone numbers and email addresses on the 
+                a(href='/settings') settings
+                |  page.
+            form.form-signin(action="/sms", method="post")
+                h4 Phone numbers:
+                each phonenum in user.phone
+                    li= phonenum
+                <br>
+                button.btn.btn-lg.btn-success.btn-block(type='submit') Send text messages
+                <br>
+            form.form-signin(action="/email", method="post")
+                h4 Email addresses:
+                each emailaddr in user.email
+                    li= emailaddr
+                <br>
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Send emails

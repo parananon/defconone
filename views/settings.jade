@@ -2,7 +2,10 @@ extends layout
 block content
     body
         .container
-            h1 Hey there, #{user.username}!
+            h1 Hey there, #{user.name}!
+            if (message.length != 0)
+                .alert.alert-info.fade.in #{message}
+                    a.close(href="#", data-dismiss="alert") x
             h2 Phone numbers:
             each phonenum in user.phone
                 li= phonenum

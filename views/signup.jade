@@ -6,9 +6,18 @@ block content
             form.form-signin(action="/signup", method="post")
                 h2.form-signin-heading Sign up
                 if (message.length != 0)
-                    .alert.alert-danger #{message}
-                input.form-control(type='text', name='username', placeholder='Username', autofocus='autofocus')
+                    .alert.alert-danger.fade.in #{message}
+                        a.close(href="#", data-dismiss="alert") x
+                label(for='pemail') Your real name
+                input.form-control(type='text', name='realname', placeholder='Jane Doe', autofocus='autofocus')
                 <br>
+                label(for='pemail') Your personal email address
+                input.form-control(type='text', name='pemail', placeholder='you@example.com')
+                <br>
+                label(for='pemail') Your username (you'll use this and your password to log in)
+                input.form-control(type='text', name='username', placeholder='Username')
+                <br>
+                label(for='pemail') Your password
                 input.form-control(type='password', name='password', placeholder='Password')
                 <br>
                 button.btn.btn-lg.btn-success.btn-block(type='submit') Sign up
