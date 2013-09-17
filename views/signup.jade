@@ -6,7 +6,7 @@ block content
             form.form-signin(action="/signup", method="post")
                 h2.form-signin-heading Sign up
                 if (message.length != 0)
-                    .alert.alert-danger.fade.in #{message}
+                    .alert.alert-info.fade.in #{message}
                         a.close(href="#", data-dismiss="alert") x
                 label(for='pemail') Your real name
                 input.form-control(type='text', name='realname', placeholder='Jane Doe', autofocus='autofocus')

@@ -5,6 +5,9 @@ block content
         .container
             form.form-signin(action="/login", method="post")
                 h2.form-signin-heading Sign in
+                if (message.length != 0)
+                    .alert.alert-danger.fade.in #{message}
+                        a.close(href="#", data-dismiss="alert") x
                 input.form-control(type='text', name='username', placeholder='Username', autofocus='autofocus')
                 <br>
                 input.form-control(type='password', name='password', placeholder='Password')
