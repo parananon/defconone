@@ -16,24 +16,26 @@ html
       .container
         .navbar-header
           button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
           a.navbar-brand(href='/') Defcon One
         .navbar-collapse.collapse
           ul.nav.navbar-nav
             li.active
-              a(href='/') Home
-            //li
-              //a(href='/about') About
+              a(href='/')
+                span(class="glyphicon glyphicon-home")
+                |  Home
             li
-              a(href='/brb') Red Button
+              a(href='/brb')
+                span(class="glyphicon glyphicon-warning-sign")
+                |  Red Button
             li
-              a(href='/hotlines') Hotlines
+              a(href='/hotlines')
+                span(class="glyphicon glyphicon-earphone")
+                |  Hotlines
           ul.nav.navbar-nav.navbar-right
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | Users
+                  span(class="glyphicon glyphicon-user")
+                  |  Users
                   b.caret
                 ul.dropdown-menu
                   li
