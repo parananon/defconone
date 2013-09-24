@@ -18,6 +18,8 @@ block content
                 |  page.
             form.form-signin(action="/brb/sms", method="post")
                 h4 Phone numbers:
+                if user.phone.length == 0
+                    p You don't currently have any phone contacts.
                 each phonenum in user.phone
                     li= phonenum
                 <br>
@@ -25,6 +27,8 @@ block content
                 <br>
             form.form-signin(action="/brb/email", method="post")
                 h4 Email addresses:
+                if user.email.length == 0
+                    p You don't currently have any email contacts.
                 each emailaddr in user.email
                     li= emailaddr
                 <br>
