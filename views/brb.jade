@@ -16,6 +16,7 @@ block content
                 | You can add more phone numbers and email addresses on the 
                 a(href='/settings') settings
                 |  page.
+            h2 Alert 
             form.form-signin(action="/brb/sms", method="post")
                 h4 Phone numbers:
                 if user.phone.length == 0
@@ -33,3 +34,21 @@ block content
                     li= emailaddr
                 <br>
                 button.btn.btn-lg.btn-primary.btn-block(type='submit') Send emails
+            h2 Crisis
+            form.form-signin(action="/brb/csms", method="post")
+                h4 Phone numbers:
+                if user.phone.length == 0
+                    p You don't currently have any phone contacts.
+                each phonenum in user.phone
+                    li= phonenum
+                <br>
+                button.btn.btn-lg.btn-danger.btn-block(type='submit') Send text messages
+                <br>
+            form.form-signin(action="/brb/cemail", method="post")
+                h4 Email addresses:
+                if user.email.length == 0
+                    p You don't currently have any email contacts.
+                each emailaddr in user.email
+                    li= emailaddr
+                <br>
+                button.btn.btn-lg.btn-danger.btn-block(type='submit') Send emails
