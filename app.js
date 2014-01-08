@@ -138,8 +138,8 @@ app.post('/brb/cemail', function(req, res){
     sendgrid.send({
     to: addr,
     from: process.env.SENDGRID_USERNAME,
-    subject: ' ' + req.user.name + ' needs your help',
-    text: 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)'
+    subject: 'Emergency! ' + req.user.name + ' needs your help',
+    text: 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action. \n\n Thank you, \n'+ req.user.name + '(via the Defcon One app)'
   }, function(success, message) {
     if (!success) {
       console.log(message);
