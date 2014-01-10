@@ -45,7 +45,15 @@ db.once('open', function callback() {
 });
 
 // Mongoose
+var contactSchema = mongoose.Schema({
+  fname: { type: String, required: true, unique: false },
+  lname: { type: String, required: true, unique: false },
+  email: { type: String, required: false, unique: false },
+  phone: { type: String, required: false, unique: false }
+});
+
 var userSchema = mongoose.Schema({
+  contacts: [contactSchema],
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true},
   name: { type: String, required: true},
@@ -78,6 +86,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 var User = mongoose.model('User', userSchema);
+var Contact = mongoose.model('Contact', contactSchema);
 
 // <brb>
 app.post('/brb/email', function(req, res){
@@ -139,7 +148,7 @@ app.post('/brb/cemail', function(req, res){
     to: addr,
     from: process.env.SENDGRID_USERNAME,
     subject: 'Emergency! ' + req.user.name + ' needs your help',
-    text: 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action. \n\n Thank you, \n'+ req.user.name + '(via the Defcon One app)'
+    text: 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.\n\n Thank you, \n'+ req.user.name + ' (via the Defcon One app)'
   }, function(success, message) {
     if (!success) {
       console.log(message);
@@ -199,11 +208,23 @@ app.post('/signup', function (req, res) {
   var password = req.param('password', null);
   var realname = req.param('realname', null);
   var pemail = req.param('pemail', null);
-  var user = new User({ username: username, password: password, name: realname, pemail: pemail});
+  var user = new User({ username: username, password: password, name: realname, pemail: pemail, contacts: []});
   user.save(function(err) {
     if(err) { console.log('err'); req.flash('error', 'Error, user already exists!'); res.redirect('back');}
     else { console.log('user: ' + user.username + " saved."); req.flash('success', 'User created successfully!'); res.redirect('/signin');}
   });
+})
+
+app.post('/contacts/add', function (req, res) {
+  var fname = req.param('fname', null);
+  var lname = req.param('lname', null);
+  var email = req.param('email', null);
+  var phone = req.param('phone', null);
+  user = User.findOne({ username: req.user.username});
+  var contact = new Contact({ fname:fname, lname:lname, email:email, phone:phone });
+  user.update({ $push: { contacts: contact }});
+  req.flash('success', 'Contact added successfully.');
+  res.redirect('back');
 })
 
 // <settings>
@@ -335,6 +356,10 @@ app.get('/settings', ensureAuthenticated, function(req, res){
   res.render('settings', { user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
+app.get('/contacts', ensureAuthenticated, function(req, res){
+  res.render('contacts', { user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+});
+
 app.get('/signup', function(req, res){
   res.render('signup', { messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
@@ -360,6 +385,7 @@ app.get('/hotlines', routes.hotlines);
 app.get('/signup', routes.signup);
 app.get('/signin', routes.signin);
 app.get('/settings', routes.settings);
+app.get('/contacts', routes.contacts);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

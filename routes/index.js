@@ -30,3 +30,7 @@ exports.signin = function(req, res){
 exports.settings = function(req, res){
 	res.render('settings', { title: 'Settings' });
 }
+
+exports.contacts = function(req, res){
+	res.render('contacts', { title: 'Contacts' });
+}
