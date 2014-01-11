@@ -13,20 +13,21 @@ block content
                 .alert.alert-success.fade.in #{messageS}
                     a.close(href="#", data-dismiss="alert") x
             if (user.contacts.length != 0)
-                table.table.table-striped
-                    thead
-                        tr
-                            th First Name
-                            th Last Name
-                            th Email Address
-                            th Phone Number
-                    tbody
-                        each contact in user.contacts
+                .table-responsive
+                    table.table.table-striped
+                        thead
                             tr
-                                td= contact.fname
-                                td= contact.lname
-                                td= contact.email
-                                td= contact.phone
+                                th First Name
+                                th Last Name
+                                th Email Address
+                                th Phone Number
+                        tbody
+                            each contact in user.contacts
+                                tr
+                                    td= contact.fname
+                                    td= contact.lname
+                                    td= contact.email
+                                    td= contact.phone
             form.form-signin(action="/contacts/add", method="post")
                 h2.form-signin-heading Add new contact
                 label(for='fname') Their first name

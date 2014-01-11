@@ -17,20 +17,21 @@ block content
                 a(href='/contacts') contacts
                 |  page.
             if (user.contacts.length != 0)
-                table.table.table-striped
-                    thead
-                        tr
-                            th First Name
-                            th Last Name
-                            th Email Address
-                            th Phone Number
-                    tbody
-                        each contact in user.contacts
+                .table-responsive
+                    table.table.table-striped
+                        thead
                             tr
-                                td= contact.fname
-                                td= contact.lname
-                                td= contact.email
-                                td= contact.phone
+                                th First Name
+                                th Last Name
+                                th Email Address
+                                th Phone Number
+                        tbody
+                            each contact in user.contacts
+                                tr
+                                    td= contact.fname
+                                    td= contact.lname
+                                    td= contact.email
+                                    td= contact.phone
             .col-md-6
                 h2 Alert 
                 form.form-signin(action="/brb/sms", method="post")
