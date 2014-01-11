@@ -12,43 +12,47 @@ block content
             if (messageS.length != 0)
                 .alert.alert-success.fade.in #{messageS}
                     a.close(href="#", data-dismiss="alert") x
-            h2 Phone numbers:
-            each phonenum in user.phone
-                li= phonenum
-            form.form(action="/settings/addtel", method="post")
-                h3.form-signin-heading Add telephone number
-                input.form-control(type='tel', name='newtel', placeholder='5555555555')
-                <br>
-                button.btn.btn-lg.btn-success(type='submit') Add telephone number
-            form.form(action="/settings/deltel", method="post")
-                h3.form-signin-heading Remove telephone number
-                form-control(class='input-mini', type='tel', name='tel', placeholder='5555555555')
-                <br>
-                button.btn.btn-danger(type='submit') Remove telephone number
-            h2 Email addresses:
-            each emailaddr in user.email
-                li= emailaddr
-            form.form(action="/settings/addemail", method="post")
-                h3.form-signin-heading Add email address
-                input.form-control(type='email', name='newmail', placeholder='example@example.com')
-                <br>
-                button.btn.btn-lg.btn-primary.btn-block(type='submit') Add email address
-            form.form(action="/settings/delemail", method="post")
-                h3.form-signin-heading Remove email address
-                input.form-control(type='email', name='currentmail', placeholder='example@example.com')
-                <br>
-                button.btn.btn-lg.btn-danger.btn-block(type='submit') Remove email address   
-            form.form(action="/settings/changepass", method="post")
-                h3.form-signin-heading Change your password
-                input.form-control(type='password', name='newpass', placeholder='New Password')
-                <br>
-                input.form-control(type='password', name='newpass2', placeholder='New Password Again')
-                <br>
-                button.btn.btn-lg.btn-warning.btn-block(type='submit') Change password
-            form.form-signin(action="/settings/delete", method="post")
-                h3.form-signin-heading Delete your account
-                input.form-control(type='text', name='uname', placeholder='Username')
-                <br>
-                input.form-control(type='password', name='verifydelete', placeholder='Password')
-                <br>
-                button.btn.btn-lg.btn-default.btn-block(type='submit') Delete your account
+            .col-md-6
+                h2 Phone numbers:
+                each phonenum in user.phone
+                    li= phonenum
+                form.form(action="/settings/addtel", method="post")
+                    h3.form-signin-heading Add telephone number
+                    input.form-control(type='tel', name='newtel', placeholder='5555555555')
+                    <br>
+                    button.btn.btn-lg.btn-success.btn-block(type='submit') Add telephone number
+                form.form(action="/settings/deltel", method="post")
+                    h3.form-signin-heading Remove telephone number
+                    input.form-control(type='tel', name='tel', placeholder='5555555555')
+                    <br>
+                    button.btn.btn-lg.btn-danger.btn-block(type='submit') Remove telephone number
+            .col-md-6
+                h2 Email addresses:
+                each emailaddr in user.email
+                    li= emailaddr
+                form.form(action="/settings/addemail", method="post")
+                    h3.form-signin-heading Add email address
+                    input.form-control(type='email', name='newmail', placeholder='example@example.com')
+                    <br>
+                    button.btn.btn-lg.btn-primary.btn-block(type='submit') Add email address
+                form.form(action="/settings/delemail", method="post")
+                    h3.form-signin-heading Remove email address
+                    input.form-control(type='email', name='currentmail', placeholder='example@example.com')
+                    <br>
+                    button.btn.btn-lg.btn-danger.btn-block(type='submit') Remove email address   
+            .col-md-6
+                form.form(action="/settings/changepass", method="post")
+                    h3.form-signin-heading Change your password
+                    input.form-control(type='password', name='newpass', placeholder='New Password')
+                    <br>
+                    input.form-control(type='password', name='newpass2', placeholder='New Password Again')
+                    <br>
+                    button.btn.btn-lg.btn-warning.btn-block(type='submit') Change password
+            .col-md-6
+                form.form-signin(action="/settings/delete", method="post")
+                    h3.form-signin-heading Delete your account
+                    input.form-control(type='text', name='uname', placeholder='Username')
+                    <br>
+                    input.form-control(type='password', name='verifydelete', placeholder='Password')
+                    <br>
+                    button.btn.btn-lg.btn-default.btn-block(type='submit') Delete your account
