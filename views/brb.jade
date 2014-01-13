@@ -12,8 +12,9 @@ block content
             if (messageS.length != 0)
                 .alert.alert-success.fade.in #{messageS}
                     a.close(href="#", data-dismiss="alert") x
+            h2 Contacts        
             strong
-                | You can add more contacts on the 
+                | You can manage your contacts on the 
                 a(href='/contacts') contacts
                 |  page.
             if (user.contacts.length != 0)
@@ -32,17 +33,27 @@ block content
                                     td= contact.lname
                                     td= contact.email
                                     td= contact.phone
-            .col-md-6
-                h2 Alert 
-                form.form-signin(action="/brb/sms", method="post")
-                    button.btn.btn-lg.btn-success.btn-block(type='submit') Send text messages
-                    <br>
-                form.form-signin(action="/brb/email", method="post")
-                    button.btn.btn-lg.btn-primary.btn-block(type='submit') Send emails
-            .col-md-6
+            .row
+                h2 Alert
+                .col-md-6
+                    p Use this option if you're having a bad time and need support from friends and family. It will send the following message to your contacts:
+                    blockquote
+                        p Emergency! #{user.name} needs your help. Text them to let them know you're there for them.
+                .col-md-6    
+                    form.form-signin(action="/brb/sms", method="post")
+                            button.btn.btn-lg.btn-success.btn-block(type='submit') Send text messages
+                            <br>
+                    form.form-signin(action="/brb/email", method="post")
+                            button.btn.btn-lg.btn-primary.btn-block(type='submit') Send emails
+            .row
                 h2 Crisis
-                form.form-signin(action="/brb/csms", method="post")
-                    button.btn.btn-lg.btn-danger.btn-block(type='submit') Send text messages
-                    <br>
-                form.form-signin(action="/brb/cemail", method="post")
-                    button.btn.btn-lg.btn-danger.btn-block(type='submit') Send emails
+                .col-md-6
+                    p Use this option only in the most serious of emergencies. It will send the following message to your contacts:
+                    blockquote
+                        p I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.
+                .col-md-6
+                    form.form-signin(action="/brb/csms", method="post")
+                        button.btn.btn-lg.btn-danger.btn-block(type='submit') Send text messages
+                        <br>
+                    form.form-signin(action="/brb/cemail", method="post")
+                        button.btn.btn-lg.btn-danger.btn-block(type='submit') Send emails

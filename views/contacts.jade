@@ -21,6 +21,7 @@ block content
                                 th Last Name
                                 th Email Address
                                 th Phone Number
+                                th Delete
                         tbody
                             each contact in user.contacts
                                 tr
@@ -28,6 +29,9 @@ block content
                                     td= contact.lname
                                     td= contact.email
                                     td= contact.phone
+                                    td
+                                        a(href='/contacts/delete/#{contact.id}')
+                                            span(class="glyphicon glyphicon-trash")
             form.form-signin(action="/contacts/add", method="post")
                 h2.form-signin-heading Add new contact
                 label(for='fname') Their first name

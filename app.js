@@ -112,13 +112,12 @@ app.post('/brb/email', function(req, res){
 
 app.post('/brb/sms', function(req, res){
 	var sms = req.param('sms', null);
+  var util = require("util");
+  var Client = require('telapi').client;
+  var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
 	for(var i = 0; i < req.user.contacts.length; i++){
     if(req.user.contacts[i].phone != null){
-      var currentPhone = req.user.contacts[i].phone;
-      var util = require("util");
-    	var Client = require('telapi').client;
-
-    	var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2); 
+      var currentPhone = req.user.contacts[i].phone; 
 
     	var options = {
     	    "From": process.env.TELAPI_NUMBER,
@@ -126,20 +125,18 @@ app.post('/brb/sms', function(req, res){
     	    "Body": "Emergency! " + req.user.name + " needs your help. Text them to let them know you\'re there for them. \n- Defcon One \n(http://www.defconone.us)"
     	};
 
-
     	client.create("sms_messages", options, function (response) {
     	        util.log("SmsMessage SID: " +  response.sid);
               req.flash('success', 'Text messages sent successfully.');
-              res.redirect('back');
     	    },
     	    function (error) {
     	        util.log("Error: " + error);
               req.flash('error', 'An error occured while sending text messages.');
-              res.redirect('back');
     	    }
     	);
     }
   }
+  res.redirect('back');
 });
 
 // crisis
@@ -217,6 +214,8 @@ app.post('/signup', function (req, res) {
   });
 })
 
+// contacts
+
 app.post('/contacts/add', function (req, res) {
   var fname = req.param('fname', null);
   var lname = req.param('lname', null);
@@ -226,6 +225,13 @@ app.post('/contacts/add', function (req, res) {
   var contact = new Contact({ fname:fname, lname:lname, email:email, phone:phone });
   user.update({ $push: { contacts: contact }});
   req.flash('success', 'Contact added successfully.');
+  res.redirect('back');
+})
+
+app.get('/contacts/delete/:id', function (req, res) {
+  req.user.contacts.id(req.params.id).remove();
+  req.user.save();
+  req.flash('success', 'Contact removed successfully.');
   res.redirect('back');
 })
 
