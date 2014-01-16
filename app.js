@@ -20,6 +20,9 @@ var BSON = require('mongodb').BSONPure;
 var messages = require('express-messages-bootstrap');
 var flash = require('connect-flash');
 var SALT_WORK_FACTOR = 12;
+var util = require("util");
+var Client = require('telapi').client;
+var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -37,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 
+// Mongoose
 mongoose.connect(process.env.MONGOLAB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -44,7 +48,6 @@ db.once('open', function callback() {
   console.log('Connected to DB');
 });
 
-// Mongoose
 var contactSchema = mongoose.Schema({
   fname: { type: String, required: true, unique: false },
   lname: { type: String, required: true, unique: false },
@@ -90,31 +93,36 @@ var Contact = mongoose.model('Contact', contactSchema);
 
 // <brb>
 app.post('/brb/email', function(req, res){
-  for(var i = 0; i < req.user.email.length; i++){
-    var addr = req.user.email[i];
-  	sendgrid.send({
-   	to: addr,
-    from: process.env.SENDGRID_USERNAME,
-    subject: ' ' + req.user.name + ' needs your help',
-    text: 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)'
-  }, function(success, message) {
-    if (!success) {
-      console.log(message);
-      req.flash('success', 'Emails sent successfully.');
-      res.redirect('back');
+  var suc = true;
+  for(var i = 0; i < req.user.contacts.length; i++){
+    if(req.user.contacts[i].email != null){
+      var addr = req.user.contacts[i].email;
+      sendgrid.send({
+          to: addr,
+          from: process.env.SENDGRID_USERNAME,
+          subject: ' ' + req.user.name + ' needs your help',
+          text: 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)'}, function(success, message) {
+      if (!success) {
+        console.log(message);
+      }
+      else
+        console.log(message);
+      });
     }
-    else
-      req.flash('error', 'An error occured while sending emails.');
-      res.redirect('back');
-  });
+  }
+  if(suc == true) {
+    req.flash('success', 'Emails messages sent successfully.');
+    res.redirect('back');
+  }
+  else {
+    req.flash('error', 'An error occured while sending emails.');
+    res.redirect('back');
   }
 });
 
 app.post('/brb/sms', function(req, res){
 	var sms = req.param('sms', null);
-  var util = require("util");
-  var Client = require('telapi').client;
-  var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
+  var suc = true;
 	for(var i = 0; i < req.user.contacts.length; i++){
     if(req.user.contacts[i].phone != null){
       var currentPhone = req.user.contacts[i].phone; 
@@ -127,16 +135,27 @@ app.post('/brb/sms', function(req, res){
 
     	client.create("sms_messages", options, function (response) {
     	        util.log("SmsMessage SID: " +  response.sid);
-              req.flash('success', 'Text messages sent successfully.');
+              suc = true;
+              // req.flash('success', 'Text messages sent successfully.');
+              // res.redirect('back');
     	    },
     	    function (error) {
     	        util.log("Error: " + error);
-              req.flash('error', 'An error occured while sending text messages.');
+              // req.flash('error', 'An error occured while sending text messages.');
+              // res.redirect('back');
+              suc = false;
     	    }
     	);
     }
   }
-  res.redirect('back');
+  if(suc == true) {
+    req.flash('success', 'Text messages sent successfully.');
+    res.redirect('back');
+  }
+  else {
+    req.flash('error', 'An error occured while sending text messages.');
+    res.redirect('back');
+  }
 });
 
 // crisis
@@ -163,32 +182,28 @@ app.post('/brb/cemail', function(req, res){
 
 app.post('/brb/csms', function(req, res){
   var sms = req.param('sms', null);
-  for(var i = 0; i < req.user.phone.length; i++){
-    var currentPhone = req.user.phone[i];
-    var util = require("util");
-    var Client = require('telapi').client;
+  for(var i = 0; i < req.user.contacts.length; i++){
+    if(req.user.contacts[i].phone != null){
+      var currentPhone = req.user.contacts[i].phone; 
 
-    var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2); 
+      var options = {
+          "From": process.env.TELAPI_NUMBER,
+          "To": currentPhone,
+          "Body": 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.\n\n Thank you, \n'+ req.user.name + ' (via the Defcon One app)'
+      };
 
-    var options = {
-        "From": process.env.TELAPI_NUMBER,
-        "To": currentPhone,
-        "Body": "Red alert! " + req.user.name + " needs your help immediately. Call 9-1-1 now to let them know you\'re there for them. \n- Defcon One \n(http://www.defconone.us)"
-    };
-
-
-    client.create("sms_messages", options, function (response) {
-            util.log("SmsMessage SID: " +  response.sid);
-            req.flash('success', 'Text messages sent successfully.');
-            res.redirect('back');
-        },
-        function (error) {
-            util.log("Error: " + error);
-            req.flash('error', 'An error occured while sending text messages.');
-            res.redirect('back');
-        }
-    );
+      client.create("sms_messages", options, function (response) {
+              util.log("SmsMessage SID: " +  response.sid);
+              req.flash('success', 'Text messages sent successfully.');
+          },
+          function (error) {
+              util.log("Error: " + error);
+              req.flash('error', 'An error occured while sending text messages.');
+          }
+      );
+    }
   }
+  res.redirect('back');
 });
 
 // </brb>
