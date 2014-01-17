@@ -60,9 +60,7 @@ var userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true},
   name: { type: String, required: true},
-  pemail: { type: String, required: true, unique: true}, //personal email address
-  phone: { type: Array, required: false, unique: false },
-  email: { type: Array, required: false, unique: false }
+  pemail: { type: String, required: true, unique: true}
 });
 
 userSchema.pre('save', function(next) {
@@ -104,9 +102,11 @@ app.post('/brb/email', function(req, res){
           text: 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)'}, function(success, message) {
       if (!success) {
         console.log(message);
+        suc = false;
       }
       else
         console.log(message);
+        suc = true;
       });
     }
   }
@@ -122,27 +122,25 @@ app.post('/brb/email', function(req, res){
 
 app.post('/brb/sms', function(req, res){
 	var sms = req.param('sms', null);
+  var crisis = req.param('crisis', null)
   var suc = true;
 	for(var i = 0; i < req.user.contacts.length; i++){
     if(req.user.contacts[i].phone != null){
-      var currentPhone = req.user.contacts[i].phone; 
-
-    	var options = {
-    	    "From": process.env.TELAPI_NUMBER,
-    	    "To": currentPhone,
-    	    "Body": "Emergency! " + req.user.name + " needs your help. Text them to let them know you\'re there for them. \n- Defcon One \n(http://www.defconone.us)"
+      var currentPhone = req.user.contacts[i].phone;
+      var options = {
+    	    From: process.env.TELAPI_NUMBER,
+    	    To: currentPhone,
+          Body: req.user.name + ' is having a hard time and needs your help. Text them to let them know you\'re there for them.'
     	};
-
-    	client.create("sms_messages", options, function (response) {
+      if(crisis=="true"){
+        options.Body = req.user.name + ' is suicidal and needs help. Contact them and take them to a hospital to get a suicide assessment. If you can\'t reach them, call 911.'
+      }
+      client.create("sms_messages", options, function (response) {
     	        util.log("SmsMessage SID: " +  response.sid);
               suc = true;
-              // req.flash('success', 'Text messages sent successfully.');
-              // res.redirect('back');
     	    },
     	    function (error) {
     	        util.log("Error: " + error);
-              // req.flash('error', 'An error occured while sending text messages.');
-              // res.redirect('back');
               suc = false;
     	    }
     	);
@@ -289,37 +287,37 @@ app.post('/settings/delete', function (req, res) {
     res.redirect('back');
 })
 
-app.post('/settings/addtel', function (req, res) {
-  var newtel = req.param('newtel', null);
-  var user = User.findOne({ username: req.user.username });
-  user.update({$push: {phone:newtel}});
-  req.flash('success', 'Telephone number added to account.');
-  res.redirect('back');
-})
+// app.post('/settings/addtel', function (req, res) {
+//   var newtel = req.param('newtel', null);
+//   var user = User.findOne({ username: req.user.username });
+//   user.update({$push: {phone:newtel}});
+//   req.flash('success', 'Telephone number added to account.');
+//   res.redirect('back');
+// })
 
-app.post('/settings/deltel', function (req, res) {
-  var tel = req.param('tel', null);
-  var user = User.findOne({ username: req.user.username });
-  user.update({$pull: {phone:tel}});
-  req.flash('info', 'Telephone number removed from account.');
-  res.redirect('back');
-})
+// app.post('/settings/deltel', function (req, res) {
+//   var tel = req.param('tel', null);
+//   var user = User.findOne({ username: req.user.username });
+//   user.update({$pull: {phone:tel}});
+//   req.flash('info', 'Telephone number removed from account.');
+//   res.redirect('back');
+// })
 
-app.post('/settings/addemail', function (req, res) {
-  var newmail = req.param('newmail', null);
-  var user = User.findOne({ username: req.user.username });
-  user.update({$push: {email:newmail}});
-  req.flash('success', 'Email address added to account.');
-  res.redirect('back');
-})
+// app.post('/settings/addemail', function (req, res) {
+//   var newmail = req.param('newmail', null);
+//   var user = User.findOne({ username: req.user.username });
+//   user.update({$push: {email:newmail}});
+//   req.flash('success', 'Email address added to account.');
+//   res.redirect('back');
+// })
 
-app.post('/settings/delemail', function (req, res) {
-  var curmail = req.param('currentmail', null);
-  var user = User.findOne({ username: req.user.username });
-  user.update({$pull: {email:curmail}});
-  req.flash('info', 'Email address removed from account.');
-  res.redirect('back');
-})
+// app.post('/settings/delemail', function (req, res) {
+//   var curmail = req.param('currentmail', null);
+//   var user = User.findOne({ username: req.user.username });
+//   user.update({$pull: {email:curmail}});
+//   req.flash('info', 'Email address removed from account.');
+//   res.redirect('back');
+// })
 
 // </settings>
 
