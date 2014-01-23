@@ -92,14 +92,19 @@ var Contact = mongoose.model('Contact', contactSchema);
 // <brb>
 app.post('/brb/email', function(req, res){
   var suc = true;
+  var crisis = req.param('crisis', null);
   for(var i = 0; i < req.user.contacts.length; i++){
     if(req.user.contacts[i].email != null){
       var addr = req.user.contacts[i].email;
+      var etxt = 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)';
+      if(crisis=="true"){
+        etxt = 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.\n\n Thank you, \n'+ req.user.name + ' (via the Defcon One app)';
+      }
       sendgrid.send({
           to: addr,
           from: process.env.SENDGRID_USERNAME,
-          subject: ' ' + req.user.name + ' needs your help',
-          text: 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)'}, function(success, message) {
+          subject: 'Emergency! ' + req.user.name + ' needs your help',
+          text: etxt}, function(success, message) {
       if (!success) {
         console.log(message);
         suc = false;
@@ -111,7 +116,7 @@ app.post('/brb/email', function(req, res){
     }
   }
   if(suc == true) {
-    req.flash('success', 'Emails messages sent successfully.');
+    req.flash('success', 'Emails sent successfully.');
     res.redirect('back');
   }
   else {
@@ -122,7 +127,7 @@ app.post('/brb/email', function(req, res){
 
 app.post('/brb/sms', function(req, res){
 	var sms = req.param('sms', null);
-  var crisis = req.param('crisis', null)
+  var crisis = req.param('crisis', null);
   var suc = true;
 	for(var i = 0; i < req.user.contacts.length; i++){
     if(req.user.contacts[i].phone != null){
@@ -154,54 +159,6 @@ app.post('/brb/sms', function(req, res){
     req.flash('error', 'An error occured while sending text messages.');
     res.redirect('back');
   }
-});
-
-// crisis
-app.post('/brb/cemail', function(req, res){
-  for(var i = 0; i < req.user.email.length; i++){
-    var addr = req.user.email[i];
-    sendgrid.send({
-    to: addr,
-    from: process.env.SENDGRID_USERNAME,
-    subject: 'Emergency! ' + req.user.name + ' needs your help',
-    text: 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.\n\n Thank you, \n'+ req.user.name + ' (via the Defcon One app)'
-  }, function(success, message) {
-    if (!success) {
-      console.log(message);
-      req.flash('success', 'Emails sent successfully.');
-      res.redirect('back');
-    }
-    else
-      req.flash('error', 'An error occured while sending emails.');
-      res.redirect('back');
-  });
-  }
-});
-
-app.post('/brb/csms', function(req, res){
-  var sms = req.param('sms', null);
-  for(var i = 0; i < req.user.contacts.length; i++){
-    if(req.user.contacts[i].phone != null){
-      var currentPhone = req.user.contacts[i].phone; 
-
-      var options = {
-          "From": process.env.TELAPI_NUMBER,
-          "To": currentPhone,
-          "Body": 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.\n\n Thank you, \n'+ req.user.name + ' (via the Defcon One app)'
-      };
-
-      client.create("sms_messages", options, function (response) {
-              util.log("SmsMessage SID: " +  response.sid);
-              req.flash('success', 'Text messages sent successfully.');
-          },
-          function (error) {
-              util.log("Error: " + error);
-              req.flash('error', 'An error occured while sending text messages.');
-          }
-      );
-    }
-  }
-  res.redirect('back');
 });
 
 // </brb>
@@ -286,38 +243,6 @@ app.post('/settings/delete', function (req, res) {
     req.flash('error', 'Username and password do not match.');
     res.redirect('back');
 })
-
-// app.post('/settings/addtel', function (req, res) {
-//   var newtel = req.param('newtel', null);
-//   var user = User.findOne({ username: req.user.username });
-//   user.update({$push: {phone:newtel}});
-//   req.flash('success', 'Telephone number added to account.');
-//   res.redirect('back');
-// })
-
-// app.post('/settings/deltel', function (req, res) {
-//   var tel = req.param('tel', null);
-//   var user = User.findOne({ username: req.user.username });
-//   user.update({$pull: {phone:tel}});
-//   req.flash('info', 'Telephone number removed from account.');
-//   res.redirect('back');
-// })
-
-// app.post('/settings/addemail', function (req, res) {
-//   var newmail = req.param('newmail', null);
-//   var user = User.findOne({ username: req.user.username });
-//   user.update({$push: {email:newmail}});
-//   req.flash('success', 'Email address added to account.');
-//   res.redirect('back');
-// })
-
-// app.post('/settings/delemail', function (req, res) {
-//   var curmail = req.param('currentmail', null);
-//   var user = User.findOne({ username: req.user.username });
-//   user.update({$pull: {email:curmail}});
-//   req.flash('info', 'Email address removed from account.');
-//   res.redirect('back');
-// })
 
 // </settings>
 
