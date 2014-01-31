@@ -15,11 +15,15 @@ html
     .navbar.navbar-inverse.navbar-fixed-top
       .container
         .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+          button(class='navbar-toggle', type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span(class="sr-only") Toggle navigation
+            span(class="icon-bar")
+            span(class="icon-bar")
+            span(class="icon-bar")
           a.navbar-brand(href='/') Defcon One
-        .navbar-collapse.collapse
+        .collapse.navbar-collapse
           ul.nav.navbar-nav
-            li.active
+            li
               a(href='/')
                 span(class="glyphicon glyphicon-home")
                 |  Home
@@ -27,14 +31,26 @@ html
               a(href='/brb')
                 span(class="glyphicon glyphicon-warning-sign")
                 |  Red Button
+                script.
+                  if (window.location.href.indexOf('/brb') != -1) {
+                    $('.nav.navbar-nav a:contains("brb")').parent().addClass('active');
+                  }
             li
               a(href='/hotlines')
                 span(class="glyphicon glyphicon-earphone")
                 |  Hotlines
+                script.
+                  if (window.location.href.indexOf('/hotlines') != -1) {
+                    $('.nav.navbar-nav a:contains("hotlines")').parent().addClass('active');
+                  }
             li
               a(href='/contacts')
                 span(class="glyphicon glyphicon-book")
                 |  Contacts
+                script.
+                  if (window.location.href.indexOf('/contacts') != -1) {
+                    $('.nav.navbar-nav a:contains("contacts")').parent().addClass('active');
+                  }
           ul.nav.navbar-nav.navbar-right
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
