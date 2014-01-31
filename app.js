@@ -21,6 +21,7 @@ var messages = require('express-messages-bootstrap');
 var flash = require('connect-flash');
 var SALT_WORK_FACTOR = 12;
 var util = require("util");
+var nphone = require('phone-formatter');
 var Client = require('telapi').client;
 var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
 
@@ -126,7 +127,6 @@ app.post('/brb/email', function(req, res){
 });
 
 app.post('/brb/sms', function(req, res){
-	var sms = req.param('sms', null);
   var crisis = req.param('crisis', null);
   var suc = true;
 	for(var i = 0; i < req.user.contacts.length; i++){
@@ -190,7 +190,7 @@ app.post('/contacts/add', function (req, res) {
   var fname = req.param('fname', null);
   var lname = req.param('lname', null);
   var email = req.param('email', null);
-  var phone = req.param('phone', null);
+  var phone = nphone.normalize(req.param('phone', null));
   user = User.findOne({ username: req.user.username});
   var contact = new Contact({ fname:fname, lname:lname, email:email, phone:phone });
   user.update({ $push: { contacts: contact }});

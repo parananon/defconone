@@ -26,7 +26,7 @@ block content
                                 th Last Name
                                 th Email Address
                                 th Phone Number
-                                th Send To?
+                                //th Send To?
                         tbody
                             each contact in user.contacts
                                 tr
@@ -34,8 +34,8 @@ block content
                                     td= contact.lname
                                     td= contact.email
                                     td= contact.phone
-                                    td
-                                        input(type="checkbox", name="sendto")
+                                    //td
+                                        input(type="checkbox", name="sendto", value=contact._id, checked=false)
             .row
                 h2 Alert
                 .col-md-6
