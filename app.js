@@ -103,6 +103,7 @@ app.post('/brb/email', function(req, res){
       }
       sendgrid.send({
           to: addr,
+          fromname: "Defcon One",
           from: process.env.SENDGRID_USERNAME,
           subject: 'Emergency! ' + req.user.name + ' needs your help',
           text: etxt}, function(success, message) {
@@ -295,27 +296,27 @@ function ensureAuthenticated(req, res, next) {
 // </auth>
 
 app.get('/brb', ensureAuthenticated, function(req, res){
-  res.render('brb', { user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+  res.render('brb', { title: "Big Red Button", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
 app.get('/settings', ensureAuthenticated, function(req, res){
-  res.render('settings', { user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+  res.render('settings', { title: "Settings", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
 app.get('/contacts', ensureAuthenticated, function(req, res){
-  res.render('contacts', { user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+  res.render('contacts', { title: "Contacts", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
 app.get('/signup', function(req, res){
-  res.render('signup', { messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+  res.render('signup', { title: "Sign Ip", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
 app.get('/signin', function(req, res){
-  res.render('signin', { messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+  res.render('signin', { title: "Sign In", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
 app.get('/', function(req, res){
-  res.render('index', { messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+  res.render('index', { title: "Home", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 });
 
 app.get('/logout', function(req, res){

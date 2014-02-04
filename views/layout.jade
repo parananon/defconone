@@ -1,7 +1,7 @@
-!!! 5
+doctype html
 html
   head
-    title= "Defcon One"
+    title #{title} | Defcon One
     meta(charset="utf-8")
     meta(name='viewport', content="width=device-width, initial-scale=1.0")
     link(rel='stylesheet', href='/css/bootstrap.css')
@@ -23,34 +23,22 @@ html
           a.navbar-brand(href='/') Defcon One
         .collapse.navbar-collapse
           ul.nav.navbar-nav
-            li
+            li(class=title=='Home'?'active':undefined)
               a(href='/')
                 span(class="glyphicon glyphicon-home")
                 |  Home
-            li
+            li(class=title=='Big Red Button'?'active':undefined)
               a(href='/brb')
                 span(class="glyphicon glyphicon-warning-sign")
                 |  Red Button
-                script.
-                  if (window.location.href.indexOf('/brb') != -1) {
-                    $('.nav.navbar-nav a:contains("brb")').parent().addClass('active');
-                  }
-            li
+            li(class=title=='Hotlines'?'active':undefined)
               a(href='/hotlines')
                 span(class="glyphicon glyphicon-earphone")
                 |  Hotlines
-                script.
-                  if (window.location.href.indexOf('/hotlines') != -1) {
-                    $('.nav.navbar-nav a:contains("hotlines")').parent().addClass('active');
-                  }
-            li
+            li(class=title=='Contacts'?'active':undefined)
               a(href='/contacts')
                 span(class="glyphicon glyphicon-book")
                 |  Contacts
-                script.
-                  if (window.location.href.indexOf('/contacts') != -1) {
-                    $('.nav.navbar-nav a:contains("contacts")').parent().addClass('active');
-                  }
           ul.nav.navbar-nav.navbar-right
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
