@@ -1,7 +1,11 @@
+// #####  ###### #####  ###### #    # #####  ###### #    #  ####  # ######  ####  
+// #    # #      #    # #      ##   # #    # #      ##   # #    # # #      #      
+// #    # #####  #    # #####  # #  # #    # #####  # #  # #      # #####   ####  
+// #    # #      #####  #      #  # # #    # #      #  # # #      # #           # 
+// #    # #      #      #      #   ## #    # #      #   ## #    # # #      #    # 
+// #####  ###### #      ###### #    # #####  ###### #    #  ####  # ######  ####  
+                                                                                
 
-/**
- * Module dependencies.
- */
 
 var express = require('express');
 var routes = require('./routes');
@@ -24,6 +28,7 @@ var util = require("util");
 var nphone = require('phone-formatter');
 var Client = require('telapi').client;
 var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
+var config = require('./config.js');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -41,7 +46,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 
-// Mongoose
+
+                                                         
+// #    #  ####  #    #  ####   ####   ####   ####  ###### 
+// ##  ## #    # ##   # #    # #    # #    # #      #      
+// # ## # #    # # #  # #      #    # #    #  ####  #####  
+// #    # #    # #  # # #  ### #    # #    #      # #      
+// #    # #    # #   ## #    # #    # #    # #    # #      
+// #    #  ####  #    #  ####   ####   ####   ####  ###### 
+                                                         
+
+
 mongoose.connect(process.env.MONGOLAB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -89,17 +104,25 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 var User = mongoose.model('User', userSchema);
 var Contact = mongoose.model('Contact', contactSchema);
+ 
+// ######  ######  ######  
+// #     # #     # #     # 
+// #     # #     # #     # 
+// ######  ######  ######  
+// #     # #   #   #     # 
+// #     # #    #  #     # 
+// ######  #     # ######  
+                         
 
-// <brb>
 app.post('/brb/email', function(req, res){
   var suc = true;
   var crisis = req.param('crisis', null);
   for(var i = 0; i < req.user.contacts.length; i++){
     if(req.user.contacts[i].email != null){
       var addr = req.user.contacts[i].email;
-      var etxt = 'Email ' + req.user.name + ' now to let them know you\'re there for them. \n\n- Defcon One (http://defconone.us)';
+      var etxt = 'Email ' + req.user.name + config.email;
       if(crisis=="true"){
-        etxt = 'I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.\n\n Thank you, \n'+ req.user.name + ' (via the Defcon One app)';
+        etxt = config.cemail + req.user.name + ' (via the Defcon One app)';
       }
       sendgrid.send({
           to: addr,
@@ -136,10 +159,10 @@ app.post('/brb/sms', function(req, res){
       var options = {
     	    From: process.env.TELAPI_NUMBER,
     	    To: currentPhone,
-          Body: req.user.name + ' is having a hard time and needs your help. Text them to let them know you\'re there for them.'
+          Body: req.user.name + config.sms
     	};
       if(crisis=="true"){
-        options.Body = req.user.name + ' is suicidal and needs help. Contact them and take them to a hospital to get a suicide assessment. If you can\'t reach them, call 911.'
+        options.Body = req.user.name + config.csms;
       }
       client.create("sms_messages", options, function (response) {
     	        util.log("SmsMessage SID: " +  response.sid);
@@ -162,9 +185,17 @@ app.post('/brb/sms', function(req, res){
   }
 });
 
-// </brb>
 
-// hotlines
+                                                   
+// #    #  ####  ##### #      # #    # ######  ####  
+// #    # #    #   #   #      # ##   # #      #      
+// ###### #    #   #   #      # # #  # #####   ####  
+// #    # #    #   #   #      # #  # # #           # 
+// #    # #    #   #   #      # #   ## #      #    # 
+// #    #  ####    #   ###### # #    # ######  ####  
+                                                   
+
+
 app.get('/hotlines/hl', function(req, res){
   var hotline = req.param('radios', null);
   if(hotline == 'suicide'){
@@ -185,7 +216,16 @@ app.post('/signup', function (req, res) {
   });
 })
 
-// contacts
+
+                                                       
+//  ####   ####  #    # #####   ##    ####  #####  ####  
+// #    # #    # ##   #   #    #  #  #    #   #   #      
+// #      #    # # #  #   #   #    # #        #    ####  
+// #      #    # #  # #   #   ###### #        #        # 
+// #    # #    # #   ##   #   #    # #    #   #   #    # 
+//  ####   ####  #    #   #   #    #  ####    #    ####  
+                                                       
+
 
 app.post('/contacts/add', function (req, res) {
   var fname = req.param('fname', null);
@@ -206,7 +246,16 @@ app.get('/contacts/delete/:id', function (req, res) {
   res.redirect('back');
 })
 
-// <settings>
+
+                                                  
+//  ####  ###### ##### ##### # #    #  ####   ####  
+// #      #        #     #   # ##   # #    # #      
+//  ####  #####    #     #   # # #  # #       ####  
+//      # #        #     #   # #  # # #  ###      # 
+// #    # #        #     #   # #   ## #    # #    # 
+//  ####  ######   #     #   # #    #  ####   ####  
+                                                  
+
 
 app.post('/settings/changepass', function (req, res) {
   var newpass = req.param('newpass', null);
@@ -245,9 +294,17 @@ app.post('/settings/delete', function (req, res) {
     res.redirect('back');
 })
 
-// </settings>
 
-// <auth>
+                            
+//   ##   #    # ##### #    # 
+//  #  #  #    #   #   #    # 
+// #    # #    #   #   ###### 
+// ###### #    #   #   #    # 
+// #    # #    #   #   #    # 
+// #    #  ####    #   #    # 
+                            
+
+
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -293,7 +350,16 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/signin');
 }
 
-// </auth>
+
+                     
+//  ####  ###### ##### 
+// #    # #        #   
+// #      #####    #   
+// #  ### #        #   
+// #    # #        #   
+//  ####  ######   #   
+                     
+
 
 app.get('/brb', ensureAuthenticated, function(req, res){
   res.render('brb', { title: "Big Red Button", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
