@@ -358,47 +358,18 @@ function ensureAuthenticated(req, res, next) {
 // #  ### #        #   
 // #    # #        #   
 //  ####  ######   #   
-                     
-
-
-app.get('/brb', ensureAuthenticated, function(req, res){
-  res.render('brb', { title: "Big Red Button", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-});
-
-app.get('/settings', ensureAuthenticated, function(req, res){
-  res.render('settings', { title: "Settings", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-});
-
-app.get('/contacts', ensureAuthenticated, function(req, res){
-  res.render('contacts', { title: "Contacts", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-});
-
-app.get('/signup', function(req, res){
-  res.render('signup', { title: "Sign Ip", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-});
-
-app.get('/signin', function(req, res){
-  res.render('signin', { title: "Sign In", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-});
-
-app.get('/', function(req, res){
-  res.render('index', { title: "Home", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-});
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
 
 app.get('/', routes.index);
 app.get('/about', routes.about);
 app.get('/users', user.list);
-app.get('/brb', routes.brb);
+app.get('/brb', ensureAuthenticated, routes.brb);
 app.get('/hotlines', routes.hotlines);
 app.get('/signup', routes.signup);
 app.get('/signin', routes.signin);
-app.get('/settings', routes.settings);
-app.get('/contacts', routes.contacts);
+app.get('/settings', ensureAuthenticated, routes.settings);
+app.get('/contacts', ensureAuthenticated, routes.contacts);
+app.get('/logout', routes.logout);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
