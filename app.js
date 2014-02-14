@@ -10,10 +10,10 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var brb = require('./routes/brb');
+var config = require('./config.js');
 var http = require('http');
 var path = require('path');
-//var SendGrid = require('sendgrid').SendGrid;
-//var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 var express = require('express');
 var app = express();
 var bcrypt = require('bcryptjs');
@@ -26,10 +26,6 @@ var flash = require('connect-flash');
 var SALT_WORK_FACTOR = 12;
 var util = require("util");
 var nphone = require('phone-formatter');
-//var Client = require('telapi').client;
-//var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
-var config = require('./config.js');
-var brb = require('./routes/brb');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
