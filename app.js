@@ -12,8 +12,8 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var SendGrid = require('sendgrid').SendGrid;
-var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
+//var SendGrid = require('sendgrid').SendGrid;
+//var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 var express = require('express');
 var app = express();
 var bcrypt = require('bcryptjs');
@@ -26,9 +26,10 @@ var flash = require('connect-flash');
 var SALT_WORK_FACTOR = 12;
 var util = require("util");
 var nphone = require('phone-formatter');
-var Client = require('telapi').client;
-var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
+//var Client = require('telapi').client;
+//var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
 var config = require('./config.js');
+var brb = require('./routes/brb');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -115,74 +116,11 @@ var Contact = mongoose.model('Contact', contactSchema);
                          
 
 app.post('/brb/email', function(req, res){
-  var suc = true;
-  var crisis = req.param('crisis', null);
-  for(var i = 0; i < req.user.contacts.length; i++){
-    if(req.user.contacts[i].email != null){
-      var addr = req.user.contacts[i].email;
-      var etxt = 'Email ' + req.user.name + config.email;
-      if(crisis=="true"){
-        etxt = config.cemail + req.user.name + ' (via the Defcon One app)';
-      }
-      sendgrid.send({
-          to: addr,
-          fromname: "Defcon One",
-          from: process.env.SENDGRID_USERNAME,
-          subject: 'Emergency! ' + req.user.name + ' needs your help',
-          text: etxt}, function(success, message) {
-      if (!success) {
-        console.log(message);
-        suc = false;
-      }
-      else
-        console.log(message);
-        suc = true;
-      });
-    }
-  }
-  if(suc == true) {
-    req.flash('success', 'Emails sent successfully.');
-    res.redirect('back');
-  }
-  else {
-    req.flash('error', 'An error occured while sending emails.');
-    res.redirect('back');
-  }
+  brb.email(req, res);
 });
 
 app.post('/brb/sms', function(req, res){
-  var crisis = req.param('crisis', null);
-  var suc = true;
-	for(var i = 0; i < req.user.contacts.length; i++){
-    if(req.user.contacts[i].phone != null){
-      var currentPhone = req.user.contacts[i].phone;
-      var options = {
-    	    From: process.env.TELAPI_NUMBER,
-    	    To: currentPhone,
-          Body: req.user.name + config.sms
-    	};
-      if(crisis=="true"){
-        options.Body = req.user.name + config.csms;
-      }
-      client.create("sms_messages", options, function (response) {
-    	        util.log("SmsMessage SID: " +  response.sid);
-              suc = true;
-    	    },
-    	    function (error) {
-    	        util.log("Error: " + error);
-              suc = false;
-    	    }
-    	);
-    }
-  }
-  if(suc == true) {
-    req.flash('success', 'Text messages sent successfully.');
-    res.redirect('back');
-  }
-  else {
-    req.flash('error', 'An error occured while sending text messages.');
-    res.redirect('back');
-  }
+  brb.sms(req, res);
 });
 
 
