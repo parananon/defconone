@@ -57,15 +57,16 @@ exports.sms = function (req, res) {
             if (crisis === "true") {
                 options.Body = req.user.name + config.csms;
             }
-            client.create("sms_messages", options, function (response) {
-                util.log("SmsMessage SID: " +  response.sid);
-                suc = true;
-            },
+            client.create("sms_messages", options,
+                function (response) {
+                    util.log("SmsMessage SID: " +  response.sid);
+                    suc = true;
+                },
                 function (error) {
                     util.log("Error: " + error);
                     suc = false;
                 }
-                );
+            );
         }
     }
     if (suc === true) {
