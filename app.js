@@ -14,6 +14,8 @@ var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
 var brb = require('./routes/brb');
+var crisis = require('./routes/crisis');
+var alert = require('./routes/alert');
 var config = require('./config.js');
 var http = require('http');
 var path = require('path');
@@ -122,7 +124,17 @@ app.post('/brb/sms', function (req, res) {
     brb.sms(req, res);
 });
 
+app.post('/crisis', function (req, res) {
+    crisis.send(req, res); 
+});
 
+app.post('/alert/email', function (req, res) {
+    alert.email(req, res);
+});
+
+app.post('/alert/sms', function (req, res) {
+    alert.sms(req, res);
+});
                                                    
 // #    #  ####  ##### #      # #    # ######  ####  
 // #    # #    #   #   #      # ##   # #      #      
@@ -290,6 +302,8 @@ app.get('/', routes.index);
 app.get('/about', routes.about);
 app.get('/users', user.list);
 app.get('/brb', ensureAuthenticated, routes.brb);
+app.get('/alert', ensureAuthenticated, routes.alert);
+app.get('/crisis', ensureAuthenticated, routes.crisis);
 app.get('/hotlines', routes.hotlines);
 app.get('/signup', routes.signup);
 app.get('/signin', routes.signin);
