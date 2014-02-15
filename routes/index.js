@@ -6,7 +6,7 @@ exports.index = function (req, res) {
 };
 
 exports.about = function (req, res) {
-    res.render('about', { title: 'About' });
+    res.render('about', { title: 'About', messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
 exports.brb = function (req, res) {

@@ -26,6 +26,10 @@ html
               a(href='/')
                 span(class="glyphicon glyphicon-home")
                 |  Home
+            li(class=title=='About'?'active':undefined)
+              a(href='/about')
+                span(class="glyphicon glyphicon-info-sign")
+                |  About
             li(class=title=='Big Red Button'?'active':undefined)
               a(href='/brb')
                 span(class="glyphicon glyphicon-warning-sign")
