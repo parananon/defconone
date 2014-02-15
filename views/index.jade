@@ -3,21 +3,13 @@ block content
     body
       .jumbotron
         .container
-            if (messageE.length != 0)
-                - alertify.error(messageE)
-                .alert.alert-danger.fade.in #{messageE}
-                    a.close(href="#", data-dismiss="alert") x
-            if (messageI.length != 0)
-                .alert.alert-info.fade.in #{messageI}
-                    a.close(href="#", data-dismiss="alert") x
-            if (messageS.length != 0)
-                .alert.alert-success.fade.in #{messageS}
-                    a.close(href="#", data-dismiss="alert") x
+            include messages
             h1 Defcon One
             p
-              | An alert system for people who struggle with psychological disorders to send messages and get in touch with friends, family, and hotlines through a simple web interface.
+              | An alert system for people who struggle with psychological disorders to send messages and get in touch with friends, family, 
+              | and hotlines through a simple web interface.
             p
-              a.btn.btn-primary.btn-lg(href="/signup") Sign up »
+              a.btn.btn-primary.btn-lg(href="/signup") Sign up &raquo;
       .container
         .row
           .col-lg-4
@@ -32,6 +24,3 @@ block content
             h2 Hotlines
             p
               | Use our service to contact several important hotlines.
-        hr
-        footer
-          p © Defcon One 2014

@@ -1,0 +1,46 @@
+.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      button(class='navbar-toggle', type='button', data-toggle='collapse', data-target='.navbar-collapse')
+        span(class="sr-only") Toggle navigation
+        span(class="icon-bar")
+        span(class="icon-bar")
+        span(class="icon-bar")
+      a.navbar-brand(href='/') Defcon One
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li(class=title=='Home'?'active':undefined)
+          a(href='/')
+            span(class="glyphicon glyphicon-home")
+            |  Home
+        li(class=title=='About'?'active':undefined)
+          a(href='/about')
+            span(class="glyphicon glyphicon-info-sign")
+            |  About
+        li(class=title=='Big Red Button'?'active':undefined)
+          a(href='/brb')
+            span(class="glyphicon glyphicon-warning-sign")
+            |  Red Button
+        li(class=title=='Hotlines'?'active':undefined)
+          a(href='/hotlines')
+            span(class="glyphicon glyphicon-earphone")
+            |  Hotlines
+        li(class=title=='Contacts'?'active':undefined)
+          a(href='/contacts')
+            span(class="glyphicon glyphicon-book")
+            |  Contacts
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+              span(class="glyphicon glyphicon-user")
+              |  Users
+              b.caret
+            ul.dropdown-menu
+              li
+                a(href='/signin') Sign In
+              li
+                a(href='/signup') Sign Up
+              li
+                a(href='/settings') Settings
+              li
+                a(href='/logout') Sign Out

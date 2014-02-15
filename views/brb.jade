@@ -3,15 +3,7 @@ block content
     body
         .container
             h1 Hey there, #{user.name}!
-            if (messageE.length != 0)
-                .alert.alert-danger.fade.in #{messageE}
-                    a.close(href="#", data-dismiss="alert") x
-            if (messageI.length != 0)
-                .alert.alert-info.fade.in #{messageI}
-                    a.close(href="#", data-dismiss="alert") x
-            if (messageS.length != 0)
-                .alert.alert-success.fade.in #{messageS}
-                    a.close(href="#", data-dismiss="alert") x
+            include messages
             h2 Contacts        
             strong
                 | You can manage your contacts on the 
