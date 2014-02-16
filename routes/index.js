@@ -2,7 +2,7 @@
 "use strict";
 
 exports.index = function (req, res) {
-    res.render('index', { title: "Home", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+    res.render('index', { title: "Home", user: null, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
 exports.about = function (req, res) {

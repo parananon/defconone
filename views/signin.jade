@@ -7,8 +7,14 @@ block content
                 form.form-signin(action="/login", method="post")
                     h2.form-signin-heading Sign in
                     include messages
+                    em
+                      | Don't have an account? 
+                      a(href="/signup") Sign up.
+                    br
+                    br
                     input.form-control(type='text', name='username', placeholder='Username', autofocus='autofocus')
-                    <br>
+                    br
                     input.form-control(type='password', name='password', placeholder='Password')
-                    <br>
+                    br
                     button.btn.btn-lg.btn-info.btn-block(type='submit') Sign in
+                    br

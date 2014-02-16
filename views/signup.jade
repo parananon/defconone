@@ -6,6 +6,11 @@ block content
             form.form-signin(action="/signup", method="post")
                 h2.form-signin-heading Sign up
                 include messages
+                em
+                  | Already have an account? 
+                  a(href="/signin") Sign in.
+                br
+                br
                 label(for='pemail') Your real name
                 input.form-control(type='text', name='realname', placeholder='Jane Doe', autofocus='autofocus')
                 <br>

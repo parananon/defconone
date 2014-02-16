@@ -46,5 +46,6 @@
                 a(href='/signup') Sign Up
               li
                 a(href='/settings') Settings
-              li
-                a(href='/logout') Sign Out
+              if(user != null)
+                  li
+                    a(href='/logout') Sign Out
