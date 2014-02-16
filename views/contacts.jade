@@ -2,7 +2,7 @@ extends layout
 block content
     body
         .container
-            h1 Hey there, #{user.name}!
+            h2 Hey, #{user.name}. We're here to help.
             include messages
             if (user.contacts.length != 0)
                 .table-responsive
@@ -25,7 +25,7 @@ block content
                                         a(href='/contacts/delete/#{contact.id}')
                                             span(class="glyphicon glyphicon-trash")
             form.form-signin(action="/contacts/add", method="post")
-                h2.form-signin-heading Add new contact
+                h3.form-signin-heading Add new contact
                 label(for='fname') Their first name
                 input.form-control(type='text', name='fname', placeholder='Jane')
                 <br>

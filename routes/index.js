@@ -9,10 +9,6 @@ exports.about = function (req, res) {
     res.render('about', { title: 'About', messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
-exports.brb = function (req, res) {
-	res.render('brb', { title: "Big Red Button", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
-};
-
 exports.alert = function (req, res) {
     res.render('alert', { title: "Alert", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };

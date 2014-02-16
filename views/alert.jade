@@ -2,11 +2,13 @@ extends layout
 block content
     body
         .container
-            h1 Hey there, #{user.name}!
+            h2 Hey, #{user.name}. We're here to help.
             include messages
-            h2 Contacts        
+            h3 Contacts        
             strong
-                | You can manage your contacts on the 
+                
+                | If you don't select any contacts to message below, the message will be sent to all of them. 
+                | You can add or delete contacts on the 
                 a(href='/contacts') contacts
                 |  page.
             form(action="/alert", method="post")
@@ -30,14 +32,21 @@ block content
                                         td
                                             input(type="checkbox", id="sendto", name="#{contact._id}")
                 .row
-                    h2 Alert
                     .col-md-6
+                        h3 Alert
                         p
                           | Use this option if you're having a bad time and need support from friends and family. 
                           | It will send the following message to your contacts:
                         blockquote
                             p Emergency! #{user.name} needs your help. Text them to let them know you're there for them.
+                        em
+                          | If your life is in immediate danger, use the 
+                          a(href="/crisis") crisis
+                          |  page to send a more urgent message.
                     .col-md-6    
+                        br
+                        br
+                        br
                         input(type="hidden", name="crisis", value="false")
                         button.btn.btn-lg.btn-success.btn-block(type='submit', name='action', value='sms') Send text messages
                         br

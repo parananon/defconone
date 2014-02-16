@@ -13,7 +13,6 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
-var brb = require('./routes/brb');
 var alert = require('./routes/alert');
 var crisis = require('./routes/crisis');
 var config = require('./config.js');
@@ -293,7 +292,6 @@ function ensureAuthenticated(req, res, next) {
 app.get('/', routes.index);
 app.get('/about', routes.about);
 app.get('/users', user.list);
-app.get('/brb', ensureAuthenticated, routes.brb);
 app.get('/alert', ensureAuthenticated, routes.alert);
 app.get('/crisis', ensureAuthenticated, routes.crisis);
 app.get('/hotlines', routes.hotlines);
