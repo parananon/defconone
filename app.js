@@ -122,6 +122,10 @@ app.post('/brb/sms', function (req, res) {
     brb.sms(req, res);
 });
 
+app.post('/brb', function (req, res) {
+    brb.send(req, res);
+});
+
 
                                                    
 // #    #  ####  ##### #      # #    # ######  ####  

@@ -9,39 +9,42 @@ block content
                 | You can manage your contacts on the 
                 a(href='/contacts') contacts
                 |  page.
-            if (user.contacts.length != 0)
-                .table-responsive
-                    table.table.table-striped
-                        thead
-                            tr
-                                th First Name
-                                th Last Name
-                                th Email Address
-                                th Phone Number
-                                //th Send To?
-                        tbody
-                            each contact in user.contacts
+            form(action="/brb", method="post")
+                if (user.contacts.length != 0)
+                    .table-responsive
+                        table.table.table-striped
+                            thead
                                 tr
-                                    td= contact.fname
-                                    td= contact.lname
-                                    td= contact.email
-                                    td= contact.phone
-                                    //td
-                                        input(type="checkbox", name="sendto", value=contact._id, checked=false)
-            .row
-                h2 Alert
-                .col-md-6
-                    p Use this option if you're having a bad time and need support from friends and family. It will send the following message to your contacts:
-                    blockquote
-                        p Emergency! #{user.name} needs your help. Text them to let them know you're there for them.
-                .col-md-6    
-                    form.form-signin(action="/brb/sms", method="post")
-                            input(type="hidden", name="crisis", value="false")
-                            button.btn.btn-lg.btn-success.btn-block(type='submit') Send text messages
-                            br
-                    form.form-signin(action="/brb/email", method="post")
-                            input(type="hidden", name="crisis", value="false")
-                            button.btn.btn-lg.btn-info.btn-block(type='submit') Send emails
+                                    th First Name
+                                    th Last Name
+                                    th Email Address
+                                    th Phone Number
+                                    th Send To?
+                            tbody
+                                each contact in user.contacts
+                                    tr
+                                        td= contact.fname
+                                        td= contact.lname
+                                        td= contact.email
+                                        td= contact.phone
+                                        td
+                                            input(type="checkbox", id="sendto", name="#{contact.phone}")
+                .row
+                    h2 Alert
+                    .col-md-6
+                        p
+                          | Use this option if you're having a bad time and need support from friends and family. 
+                          | It will send the following message to your contacts:
+                        blockquote
+                            p Emergency! #{user.name} needs your help. Text them to let them know you're there for them.
+                    .col-md-6    
+                        input(type="hidden", name="crisis", value="false")
+                        button.btn.btn-lg.btn-success.btn-block(type='submit', name='action', value='sms') Send text messages
+                        br
+                        button.btn.btn-lg.btn-info.btn-block(type='submit', name='action', value='email') Send emails
+//                    form.form-signin(action="/brb/email", method="post")
+//                            input(type="hidden", name="crisis", value="false")
+//                            button.btn.btn-lg.btn-info.btn-block(type='submit', value='email') Send emails
             .row
                 h2 Crisis
                 .col-md-6
