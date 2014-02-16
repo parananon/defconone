@@ -13,6 +13,14 @@ exports.brb = function (req, res) {
 	res.render('brb', { title: "Big Red Button", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
+exports.alert = function (req, res) {
+    res.render('alert', { title: "Alert", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+};
+
+exports.crisis = function (req, res) {
+    res.render('crisis', { title: "Crisis", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+};
+
 exports.hotlines = function (req, res) {
 	res.render('hotlines', { title: 'Hotlines' });
 };

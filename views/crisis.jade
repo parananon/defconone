@@ -1,0 +1,19 @@
+extends layout
+block content
+    body
+        .container
+            h1 Hey there, #{user.name}!
+            include messages
+            .row
+                h2 Crisis
+                .col-md-6
+                    p Use this option only in the most serious of emergencies. It will send the following message to your contacts:
+                    blockquote
+                        p
+                          | I am having suicidal thoughts right now and I need your help. Please call or text me immediately and take me 
+                          | to a local hospital to get a suicide assessment. If you are unable to reach me, call 911. I am not safe and 
+                          | cannot guarantee you that right now I will not hurt myself. This is urgent and you must take immediate action.
+                .col-md-6
+                    form.form-signin(action="/crisis", method="post")
+                        button.btn.btn-lg.btn-danger.btn-block(type='submit') Send text messages and emails
+                        br

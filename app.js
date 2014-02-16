@@ -14,6 +14,8 @@ var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
 var brb = require('./routes/brb');
+var alert = require('./routes/alert');
+var crisis = require('./routes/crisis');
 var config = require('./config.js');
 var http = require('http');
 var path = require('path');
@@ -28,6 +30,10 @@ var messages = require('express-messages-bootstrap');
 var flash = require('connect-flash');
 var SALT_WORK_FACTOR = 12;
 var util = require("util");
+var Client = require('telapi').client;
+var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
+var SendGrid = require('sendgrid').SendGrid;
+var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 var nphone = require('phone-formatter');
 
 // all environments
@@ -114,19 +120,13 @@ var Contact = mongoose.model('Contact', contactSchema);
 // ######  #     # ######  
                          
 
-app.post('/brb/email', function (req, res) {
-    brb.email(req, res);
+app.post('/crisis', function (req, res) {
+    crisis.send(req, res);
 });
 
-app.post('/brb/sms', function (req, res) {
-    brb.sms(req, res);
+app.post('/alert', function (req, res) {
+    alert.send(req, res);
 });
-
-app.post('/brb', function (req, res) {
-    brb.send(req, res);
-});
-
-
                                                    
 // #    #  ####  ##### #      # #    # ######  ####  
 // #    # #    #   #   #      # ##   # #      #      
@@ -294,6 +294,8 @@ app.get('/', routes.index);
 app.get('/about', routes.about);
 app.get('/users', user.list);
 app.get('/brb', ensureAuthenticated, routes.brb);
+app.get('/alert', ensureAuthenticated, routes.alert);
+app.get('/crisis', ensureAuthenticated, routes.crisis);
 app.get('/hotlines', routes.hotlines);
 app.get('/signup', routes.signup);
 app.get('/signin', routes.signin);

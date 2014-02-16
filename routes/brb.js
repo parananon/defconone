@@ -112,25 +112,27 @@ exports.send = function (req, res) {
         }
         else {
             for (i; i < sendto.length; i++) {
-                currentPhone = sendto[i];
-                options = {
-                    From: process.env.TELAPI_NUMBER,
-                    To: currentPhone,
-                    Body: req.user.name + config.sms
-                };
-                if (crisis === "true") {
-                    options.Body = req.user.name + config.csms;
-                }
-                client.create("sms_messages", options,
-                    function (response) {
-                        util.log("SmsMessage SID: " +  response.sid);
-                        suc = true;
-                    },
-                    function (error) {
-                        util.log("Error: " + error);
-                        suc = false;
+                if (req.user.contacts[i].phone === sendto[i]) {
+                    currentPhone = sendto[i];
+                    options = {
+                        From: process.env.TELAPI_NUMBER,
+                        To: currentPhone,
+                        Body: req.user.name + config.sms
+                    };
+                    if (crisis === "true") {
+                        options.Body = req.user.name + config.csms;
                     }
-                );
+                    client.create("sms_messages", options,
+                        function (response) {
+                            util.log("SmsMessage SID: " +  response.sid);
+                            suc = true;
+                        },
+                        function (error) {
+                            util.log("Error: " + error);
+                            suc = false;
+                        }
+                    );
+                }
             }
         }
         if (suc === true) {

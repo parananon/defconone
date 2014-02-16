@@ -1,0 +1,44 @@
+extends layout
+block content
+    body
+        .container
+            h1 Hey there, #{user.name}!
+            include messages
+            h2 Contacts        
+            strong
+                | You can manage your contacts on the 
+                a(href='/contacts') contacts
+                |  page.
+            form(action="/alert", method="post")
+                if (user.contacts.length != 0)
+                    .table-responsive
+                        table.table.table-striped
+                            thead
+                                tr
+                                    th First Name
+                                    th Last Name
+                                    th Email Address
+                                    th Phone Number
+                                    th Send To?
+                            tbody
+                                each contact in user.contacts
+                                    tr
+                                        td= contact.fname
+                                        td= contact.lname
+                                        td= contact.email
+                                        td= contact.phone
+                                        td
+                                            input(type="checkbox", id="sendto", name="#{contact._id}")
+                .row
+                    h2 Alert
+                    .col-md-6
+                        p
+                          | Use this option if you're having a bad time and need support from friends and family. 
+                          | It will send the following message to your contacts:
+                        blockquote
+                            p Emergency! #{user.name} needs your help. Text them to let them know you're there for them.
+                    .col-md-6    
+                        input(type="hidden", name="crisis", value="false")
+                        button.btn.btn-lg.btn-success.btn-block(type='submit', name='action', value='sms') Send text messages
+                        br
+                        button.btn.btn-lg.btn-info.btn-block(type='submit', name='action', value='email') Send emails
