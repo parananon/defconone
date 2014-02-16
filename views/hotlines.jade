@@ -1,11 +1,12 @@
 extends layout
 block content
     body
-      <br>
+      br
       .container
           form.form-horizontal(action='/hotlines/hl')
               fieldset 
                   legend What are you struggling with?
+                  p Selecting one of these options will take you to a website for a hotline related to what you're struggling with.
                   .control-group
                     .controls
                       label.radio(for='radios-0')
@@ -18,7 +19,7 @@ block content
                         input#radios-2(name='radios', value='alcohol', type='radio')
                         | Alcohol
                       label.radio(for='radios-3')
-                        input#radios-3(name='radios', value='eatingdisorders', type='radio')
+                        input#radios-3(name='radios', value='ed', type='radio')
                         | Eating Disorders
                       label.radio(for='radios-4')
                         input#radios-4(name='radios', value='grief', type='radio')
@@ -26,5 +27,11 @@ block content
                       label.radio(for='radios-5')
                         input#radios-5(name='radios', value='sexuality', type='radio')
                         | Sexuality
+                      label.radio(for='radios-6')
+                        input#radios-5(name='radios', value='abuse', type='radio')
+                        | Abuse
+                      label.radio(for='radios-7')
+                        input#radios-5(name='radios', value='rape', type='radio')
+                        | Rape
                       <br>
                   input(type='submit', class='btn btn-danger btn-large', value='Get help »')

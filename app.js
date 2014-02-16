@@ -138,9 +138,15 @@ app.post('/alert', function (req, res) {
 
 app.get('/hotlines/hl', function (req, res) {
     var hotline = req.param('radios', null);
-    if (hotline === 'suicide') {
-        res.redirect('http://imalive.org');
-    }
+    if (hotline === 'suicide') { res.redirect('http://imalive.org'); }
+    else if (hotline === 'alcohol') { res.redirect('http://www.alcoholhotline.com/AlcoholRehab/get-help-now/'); }
+    else if (hotline === 'grief') { res.redirect('https://www.nrd.gov/family_and_caregiver_support/survivors/coping_with_grief'); }
+    else if (hotline === 'selfharm') { res.redirect('http://www.cuttingdepression.net/self-harm-hotline/'); }
+    else if (hotline === 'ed') { res.redirect('https://www.nationaleatingdisorders.org/find-help-support'); }
+    else if (hotline === 'sexuality') { res.redirect('http://www.glnh.org/'); }
+    else if (hotline === 'abuse') { res.redirect('http://www.thehotline.org/help/'); }
+    else if (hotline === 'rape') { res.redirect('https://ohl.rainn.org/online/'); }
+    
 });
 
 // sign up
