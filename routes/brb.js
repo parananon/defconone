@@ -82,8 +82,8 @@ exports.sms = function (req, res) {
 exports.send = function (req, res) {
     var action = req.param('action', null), crisis = req.param('crisis', null), suc = true, i = 0, currentPhone, options, addr, etxt, sendto;
     sendto = Object.keys(req.body);
-    sendto.pop();
-    sendto.pop();
+    sendto.splice(-2, 2);
+    console.log(sendto);
     if (action === 'sms') {
         if (sendto.length <= 0) {
             for (i; i < req.user.contacts.length; i++) {
