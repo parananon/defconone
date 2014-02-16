@@ -109,7 +109,7 @@ exports.send = function (req, res) {
         }
     }
     if (suc === true) {
-        req.flash('success', 'Emails sent successfully.');
+        req.flash('success', 'Messages sent successfully.');
         res.redirect('back');
     } else {
         req.flash('error', 'An error occured while sending messages.');
