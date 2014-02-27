@@ -34,6 +34,10 @@ var client = new Client(process.env.TELAPI_SID, process.env.TELAPI_TOKEN2);
 var SendGrid = require('sendgrid').SendGrid;
 var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 var nphone = require('phone-formatter');
+var RedisStore = require('connect-redis')(express);
+var url = require('url');
+var redisUrl = url.parse(process.env.REDISTOGO_URL);
+var redisAuth = redisUrl.auth.split(':');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -46,7 +50,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(flash());
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'keyboard cat' }));
+app.use(express.session({ store: new RedisStore({host: redisUrl.hostname, port: redisUrl.port, db: redisAuth[0], pass: redisAuth[1]}), secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);

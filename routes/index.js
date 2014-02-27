@@ -2,11 +2,11 @@
 "use strict";
 
 exports.index = function (req, res) {
-    res.render('index', { title: "Home", user: null, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+    res.render('index', { title: "Home", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
 exports.about = function (req, res) {
-    res.render('about', { title: 'About', messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+    res.render('about', { title: 'About', user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
 exports.alert = function (req, res) {
@@ -18,15 +18,15 @@ exports.crisis = function (req, res) {
 };
 
 exports.hotlines = function (req, res) {
-	res.render('hotlines', { title: 'Hotlines' });
+	res.render('hotlines', { title: 'Hotlines', user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success')});
 };
 
 exports.signup = function (req, res) {
-	res.render('signup', { title: "Sign Up", messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+	res.render('signup', { title: "Sign Up", user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
 exports.signin = function (req, res) {
-	res.render('signin', { title: 'Sign In', messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
+	res.render('signin', { title: 'Sign In', user: req.user, messageE: req.flash('error'), messageI: req.flash('info'), messageS: req.flash('success') });
 };
 
 exports.settings = function (req, res) {
