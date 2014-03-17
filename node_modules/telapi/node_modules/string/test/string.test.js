@@ -47,10 +47,13 @@
 
     describe('- between(left, right)', function() {
       it('should extract string between `left` and `right`', function() {
-        T (S('<a>foo</a>').between('<a>', '</a>').s === 'foo')
-        T (S('<a>foo</a></a>').between('<a>', '</a>').s === 'foo')
-        T (S('<a><a>foo</a></a>').between('<a>', '</a>').s === '<a>foo')
-        T (S('<a>foo').between('<a>', '</a>').s === '')
+        EQ (S('<a>foo</a>').between('<a>', '</a>').s, 'foo')
+        EQ (S('<a>foo</a></a>').between('<a>', '</a>').s, 'foo')
+        EQ (S('<a><a>foo</a></a>').between('<a>', '</a>').s, '<a>foo')
+        EQ (S('<a>foo').between('<a>', '</a>').s, '')
+        EQ (S('Some strings } are very {weird}, dont you think?').between('{', '}').s, 'weird');
+        EQ (S('This is a test string').between('test').s, ' string');
+        EQ (S('This is a test string').between('', 'test').s, 'This is a ');
       })
     })
 
@@ -313,6 +316,15 @@
         T (S('hey').pad(4).s === ' hey');
         T (S('hey').pad(7, '-').s === '--hey--');
       })
+      it('should work on numbers', function() {
+        T (S(1234).pad(4, 0).s === '1234');
+        T (S(1234).pad(7, 0).s === '0012340');
+        T (S(1234).pad(7, 1).s === '1112341');     
+      })
+      it('should use the default padding character when given null', function() {
+        T (S('hello').pad(5, null).s === 'hello');
+        T (S('hello').pad(10, null).s === '   hello  ');
+      })
     })
 
     describe('- padLeft(len, [char])', function() {
@@ -322,6 +334,15 @@
         T (S('hello').padLeft(7).s === '  hello');
         T (S('hello').padLeft(6).s === ' hello');
         T (S('hello').padLeft(10, '.').s === '.....hello');
+      })
+      it('should work on numbers', function() {
+        T (S(1234).padLeft(4, 0).s === '1234');
+        T (S(1234).padLeft(7, 0).s === '0001234');
+        T (S(1234).padLeft(7, 1).s === '1111234');     
+      })
+      it('should use the default padding character when given null', function() {
+        T (S('hello').padLeft(5, null).s === 'hello');
+        T (S('hello').padLeft(10, null).s === '     hello');
       })
     })
 
@@ -333,7 +354,17 @@
         T (S('hello').padRight(6).s === 'hello ');
         T (S('hello').padRight(10, '.').s === 'hello.....');
       })
+      it('should work on numbers', function() {
+        T (S(1234).padRight(4, 0).s === '1234');
+        T (S(1234).padRight(7, 0).s === '1234000');
+        T (S(1234).padRight(7, 1).s === '1234111');    
+      })
+      it('should use the default padding character when given null', function() {
+        T (S('hello').padRight(5, null).s === 'hello');
+        T (S('hello').padRight(10, null).s === 'hello     ');
+      })
     })
+    
 
     describe('- parseCSV([delim],[qualifier],[escape],[lineDelimiter])', function() {
       it('should parse a CSV line into an array', function() {
@@ -447,6 +478,38 @@
         S.TMPL_OPEN = '{'
         S.TMPL_CLOSE = '}'
         str = "Hello {name}! How are you doing during the year of {date-year}?"
+        EQ (S(str).template(values).s, 'Hello JP! How are you doing during the year of 2013?')
+      })
+
+      it('should return the string replaces with template values with regex chars () as Open/Close', function() {
+        S.TMPL_OPEN = "("
+        S.TMPL_CLOSE = ")"
+        var values = {name: 'JP', 'date-year': 2013}
+        var str = "Hello (name)! How are you doing during the year of (date-year)?"
+        EQ (S(str).template(values).s, 'Hello JP! How are you doing during the year of 2013?')
+      })
+
+      it('should return the string replaces with template values with regex chars [] as Open/Close', function() {
+        S.TMPL_OPEN = '['
+        S.TMPL_CLOSE = ']'
+        var values = {name: 'JP', 'date-year': 2013}
+        var str = "Hello [name]! How are you doing during the year of [date-year]?"
+        EQ (S(str).template(values).s, 'Hello JP! How are you doing during the year of 2013?')
+      })
+
+      it('should return the string replaces with template values with regex chars ** as Open/Close', function() {
+        S.TMPL_OPEN = '*'
+        S.TMPL_CLOSE = '*'
+        var values = {name: 'JP', 'date-year': 2013}
+        var str = "Hello *name*! How are you doing during the year of *date-year*?"
+        EQ (S(str).template(values).s, 'Hello JP! How are you doing during the year of 2013?')
+      })
+
+      it('should return the string replaces with template values with regex chars ** as Open/Close', function() {
+        S.TMPL_OPEN = '$'
+        S.TMPL_CLOSE = '$'
+        var values = {name: 'JP', 'date-year': 2013}
+        var str = "Hello $name$! How are you doing during the year of $date-year$?"
         EQ (S(str).template(values).s, 'Hello JP! How are you doing during the year of 2013?')
       })
 
