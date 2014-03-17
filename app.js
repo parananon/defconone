@@ -276,7 +276,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), function (req, res) {
     req.flash('success', 'Signed in successfully. Hello, ' + req.user.username + '!');
-    var redirectUrl = '/brb';
+    var redirectUrl = '/';
     if (req.session.redirectUrl) {
         redirectUrl = req.session.redirectUrl;
         req.session.redirectUrl = null;
