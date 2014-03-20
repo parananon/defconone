@@ -75,7 +75,7 @@ db.once('open', function callback() {
 
 var contactSchema = mongoose.Schema({
         fname: { type: String, required: true, unique: false },
-        lname: { type: String, required: true, unique: false },
+        lname: { type: String, required: false, unique: false },
         email: { type: String, required: false, unique: false },
         phone: { type: String, required: false, unique: false }
     });
